@@ -29,19 +29,29 @@ export default {
 }
 </script>
 <template>
-    <div v-for="movie in store.arrayShow" class=" col  px-1 g-2 p-0 position-relative">
-        <img v-if="movie.title != undefined" class="card-header" :src="getUrlImgByApi(movie)" :alt="movie.title" >
-        <img v-else class="card-header" :src="getUrlImgByApi(movie)" :alt="movie.name" >
-        <div class="info position-absolute">
-            <div class="cardbody position-relative">
-                <ul >
-                    <li class="list-unstyled">titolo :{{ movie.title }}{{ movie.name }}</li>
-                    <li class="list-unstyled" v-if=" (movie.title !=  movie.original_title ) || (movie.name != movie.original_name)">originaltitle: {{ movie.original_title }} {{ movie.original_name }}</li>
-                    <li class=" overflow-hidden list-unstyled">description: {{ movie.overview }}</li>
-                    <li class="list-unstyled"> lenguage: <ImgGeneration :element="movie"></ImgGeneration></li>
-                    <li class="list-unstyled"><VoteGeneration :element="movie"></VoteGeneration></li>
-                </ul>
-            </div>
+    <div v-for="movie in store.arrayShow" class=" col  px-1 g-2 p-0 position-relative" >
+        <div @mousemove='store.getCastByApi(movie.id)'>
+            <img v-if="movie.title != undefined" class="card-header" :src="getUrlImgByApi(movie)" :alt="movie.title" >
+            <img v-else class="card-header" :src="getUrlImgByApi(movie)" :alt="movie.name" >
+            <div class="info position-absolute">
+                <div class="cardbody position-relative">
+                    <ul >
+                        <li class="list-unstyled">titolo :{{ movie.title }}{{ movie.name }}</li>
+                        <li class="list-unstyled" v-if=" (movie.title !=  movie.original_title ) || (movie.name != movie.original_name)">originaltitle: {{ movie.original_title }} {{ movie.original_name }}</li>
+                        <li class=" overflow-hidden list-unstyled">description: {{ movie.overview }}</li>
+                        <li class="list-unstyled"> lenguage: <ImgGeneration :element="movie"></ImgGeneration></li>
+                        <li class="list-unstyled"><VoteGeneration :element="movie"></VoteGeneration></li>
+                    </ul>
+                    <div >
+                        <div >
+                            cast
+                            <ul class=" overflow-scroll h-25">
+                                <li v-for="act in store.arrayCastShow">Personaggio:{{ act.character }} Attore:{{ act.name }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        </div>
             
         </div>
     </div>
