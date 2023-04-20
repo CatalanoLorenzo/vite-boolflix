@@ -1,0 +1,51 @@
+@use './variables' as *;
+
+main {
+    background-color: rgb(58, 57, 57);
+    .col {
+        height: 500px;
+
+        .card-header {
+            z-index: -1;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .info {
+            height: 500px;
+            background-color: rgba(162, 162, 162, 0.383);
+            display: none;
+            top: 0;
+            .cardbody {
+                z-index: 2;
+                background-color: rgba(255, 255, 255, 0);
+                ul {
+                    li {
+                        max-height: 200px;
+                        span {
+                            svg {
+                                width: 10px;
+                                height: 10px;
+                                fill: yellow;
+                            }
+                        }
+                        img {
+                            width: 32px;
+                            height: 16px;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    .col:hover {
+        .info {
+            display: block;
+
+        }
+    }
+}
