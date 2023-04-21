@@ -5,12 +5,16 @@ export const store = reactive({
     querySerch: null,
     arrayShow: null,
     arrayCastShow: null,
+    arrayListGenres: null,
+    selectGenre : null,
     apiUrlMovie: 'https://api.themoviedb.org/3/search/movie?api_key=57f5adf44da9194b28f4b759dda8f20f&language=it-IT&page=1&include_adult=false&query=',
     apiUrlImg: 'https://image.tmdb.org/t/p/w500/',
     apiUrlFlag: 'https://flagsapi.com/',
     apiUrlSeries: 'https://api.themoviedb.org/3/search/tv?api_key=57f5adf44da9194b28f4b759dda8f20f&language=it-IT&page=1&include_adult=false&query=',
     apiUrlCastSeries: 'https://api.themoviedb.org/3/tv/',
     apiUrlCastMovie: 'https://api.themoviedb.org/3/movie/',
+    apiUrlGenresMovie: 'https://api.themoviedb.org/3/genre/movie/list?api_key=e99307154c6dfb0b4750f6603256716d&language=it_IT',
+    apiUrlGenresSeries: 'https://api.themoviedb.org/3/genre/tv/list?api_key=e99307154c6dfb0b4750f6603256716d&language=it_IT',
     compatibleFlags: flags,
     getDataByApi() {
         if (this.querySerch != null) {
@@ -23,6 +27,7 @@ export const store = reactive({
             axios
                 .get(urlMovie)
                 .then((response) => {
+                    console.log(response.data.results);
                     response.data.results.forEach(element => {
                         this.arrayShow.push(element)
                     });
@@ -33,6 +38,7 @@ export const store = reactive({
             axios
                 .get(urlTv)
                 .then((response) => {
+                    console.log(response.data.results);
                     response.data.results.forEach(element => {
                         this.arrayShow.push(element)
 
@@ -44,6 +50,20 @@ export const store = reactive({
                 });
 
         }
+    },
+    getGenreslist(){
+        axios
+        .get(this.apiUrlGenresMovie)
+        .then((response) => {
+            console.log(response.data);
+            this.arrayListGenres = response.data.genres
+        })
+        axios
+        .get(this.apiUrlGenresSeries)
+        .then((response) => {
+            console.log(response.data);
+            this.arrayListGenres = response.data.genres
+        })
     },
     getCastByApi(id,) {
         
@@ -68,6 +88,8 @@ export const store = reactive({
             .catch((error) => {
                 console.log(error);
             });
-        }
-
-    })
+    },
+    
+    
+    
+})

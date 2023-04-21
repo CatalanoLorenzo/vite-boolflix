@@ -29,7 +29,7 @@ export default {
 }
 </script>
 <template>
-    <div v-for="movie in store.arrayShow" class=" col  px-1 g-2 p-0 position-relative" >
+    <div v-for="movie in store.arrayShow" v-show="movie.genre_ids.includes(store.selectGenre) || movie.genre_ids.includes(store.selectGenre) " class=" col  px-1 g-2 p-0 position-relative" >
         <div @mousemove='store.getCastByApi(movie.id)'>
             <img v-if="movie.title != undefined" class="card-header" :src="getUrlImgByApi(movie)" :alt="movie.title" >
             <img v-else class="card-header" :src="getUrlImgByApi(movie)" :alt="movie.name" >
