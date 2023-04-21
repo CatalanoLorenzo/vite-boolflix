@@ -21,6 +21,7 @@ export default {
             <div class=" nav-item">
                 <section>
                     <select name="" id="" v-model="store.selectGenre">
+                        <option value='' ></option>
                         <option v-for="genre in store.arrayListGenres" :value="genre.id"  >{{ genre.name }}</option>
                     </select>
                 </section>

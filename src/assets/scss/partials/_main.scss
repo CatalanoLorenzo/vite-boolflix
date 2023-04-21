@@ -3,8 +3,8 @@
 main {
     background-color: rgb(58, 57, 57);
     .col {
+        height: 500px;
         div{
-            height: 500px;
             
                     .card-header {
                         z-index: -1;
@@ -24,8 +24,13 @@ main {
                             z-index: 2;
                             background-color: rgba(255, 255, 255, 0);
                             ul {
+                                height: 500px;
+                                overflow-y: scroll;
+
                                 li {
-                                    max-height: 200px;
+                                    max-height: calc((100% / 12) * 2);
+                                    list-style: none;
+                                    
                                     span {
                                         svg {
                                             width: 10px;

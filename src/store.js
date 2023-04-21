@@ -6,7 +6,8 @@ export const store = reactive({
     arrayShow: null,
     arrayCastShow: null,
     arrayListGenres: null,
-    selectGenre : null,
+    selectGenre : '',
+    erronNotFoudGenres: false,
     apiUrlMovie: 'https://api.themoviedb.org/3/search/movie?api_key=57f5adf44da9194b28f4b759dda8f20f&language=it-IT&page=1&include_adult=false&query=',
     apiUrlImg: 'https://image.tmdb.org/t/p/w500/',
     apiUrlFlag: 'https://flagsapi.com/',
@@ -89,7 +90,13 @@ export const store = reactive({
                 console.log(error);
             });
     },
-    
+    chagestatus(condition){
+if (condition) {
+    this.erronNotFoudGenres = true
+}else{
+    this.erronNotFoudGenres = false
+}
+    }
     
     
 })
