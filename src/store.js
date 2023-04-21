@@ -30,7 +30,11 @@ export const store = reactive({
                 .then((response) => {
                     console.log(response.data.results);
                     response.data.results.forEach(element => {
-                        this.arrayShow.push(element)
+                        if (element.genre_ids.includes(store.selectGenre) || store.selectGenre == '') {
+                            this.arrayShow.push(element)
+                        }else{
+                            erronNotFoudGenres = true
+                        }
                     });
                 })
                 .catch((error) => {
@@ -41,7 +45,11 @@ export const store = reactive({
                 .then((response) => {
                     console.log(response.data.results);
                     response.data.results.forEach(element => {
-                        this.arrayShow.push(element)
+                        if (element.genre_ids.includes(store.selectGenre) || store.selectGenre == '') {
+                            this.arrayShow.push(element)
+                        }else{
+                            erronNotFoudGenres = true
+                        }
 
 
                     })
@@ -90,13 +98,10 @@ export const store = reactive({
                 console.log(error);
             });
     },
-    chagestatus(condition){
-if (condition) {
-    this.erronNotFoudGenres = true
-}else{
-    this.erronNotFoudGenres = false
-}
+    chagestatus(){
+        if (this.arrayShow.length == 0) {
+            this.erronNotFoudGenres = true
+            }
     }
-    
-    
-})
+            
+        })

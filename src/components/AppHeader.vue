@@ -20,7 +20,7 @@ export default {
             </div>
             <div class=" nav-item">
                 <section>
-                    <select name="" id="" v-model="store.selectGenre">
+                    <select name="" id="" v-model="store.selectGenre" @change="store.getDataByApi() , store.chagestatus()">
                         <option value='' ></option>
                         <option v-for="genre in store.arrayListGenres" :value="genre.id"  >{{ genre.name }}</option>
                     </select>

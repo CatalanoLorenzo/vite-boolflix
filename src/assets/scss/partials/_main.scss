@@ -3,19 +3,14 @@
 main {
     background-color: rgb(58, 57, 57);
     .col {
-        height: 500px;
+        height: 400px;
         div{
-            
                     .card-header {
-                        z-index: -1;
-                        height: 100%;
+                        height: 400px;
                         width: 100%;
-                        object-fit: cover;
-                        object-position: center;
                     }
-            
                     .info {
-                        height: 500px;
+                        height: 400px;
                         width: 100%;
                         background-color: rgba(162, 162, 162, 0.383);
                         display: none;
@@ -24,13 +19,10 @@ main {
                             z-index: 2;
                             background-color: rgba(255, 255, 255, 0);
                             ul {
-                                height: 500px;
+                                height: 400px;
                                 overflow-y: scroll;
-
                                 li {
                                     max-height: calc((100% / 12) * 2);
-                                    list-style: none;
-                                    
                                     span {
                                         svg {
                                             width: 10px;
