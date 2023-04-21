@@ -27,17 +27,18 @@ export default {
         },
         
     },
+    
 }
 </script>
 <template>
     <div v-show="store.erronNotFoudGenres">Nessun film presente per questo genere</div>
     <div v-for="movie in store.arrayShow" class=" col  mx-1 g-2 p-0 position-relative" :class="{'d-none' :store.erronNotFoudGenres}" >
-        <div @mousemove='store.getCastByApi(movie.id)' v-show="!store.erronNotFoudGenres"  v-if="(movie.genre_ids.includes(store.selectGenre) || movie.genre_ids.includes(store.selectGenre) || store.selectGenre == '') ? store.erronNotFoudGenres = !store.erronNotFoudGenres" >
+        <div @mousemove='store.getCastByApi(movie.id)' v-show="!store.erronNotFoudGenres" >
             <img v-if="movie.title != undefined" class="card-header" :src="getUrlImgByApi(movie)" :alt="movie.title" >
             <img v-else class="card-header" :src="getUrlImgByApi(movie)" :alt="movie.name">
             <div class="info position-absolute">
                 <div class="cardbody position-relative">
-                    <ul>
+                    <ul class="p-0 m-0">
                         <li class="list-unstyled">titolo :{{ movie.title }}{{ movie.name }}</li>
                         <li class="list-unstyled"
                             v-if="(movie.title != movie.original_title) || (movie.name != movie.original_name)">
@@ -50,8 +51,7 @@ export default {
                         <li class="list-unstyled">
                             <VoteGeneration :element="movie"></VoteGeneration>
                         </li>
-
-                        <li clas="list-unstyled" v-for="act in store.arrayCastShow">Personaggio:{{ act.character }}
+                        <li v-for="act in store.arrayCastShow">Personaggio:{{ act.character }}
                             Attore:{{ act.name }}
                         </li>
                     </ul>
@@ -59,7 +59,6 @@ export default {
             </div>
 
         </div>
-
     </div>
 </template>
 <style lang="scss"></style>
