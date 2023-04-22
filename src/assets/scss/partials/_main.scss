@@ -2,43 +2,51 @@
 
 main {
     background-color: rgb(58, 57, 57);
+
     .col {
         height: 400px;
-        div{
-                    .card-header {
+
+        div {
+            .card-header {
+                height: 400px;
+                width: 100%;
+            }
+
+            .info {
+                height: 400px;
+                width: 100%;
+                background-color: rgba(162, 162, 162, 0.383);
+                display: none;
+                top: 0;
+
+                .cardbody {
+                    z-index: 2;
+                    background-color: rgba(255, 255, 255, 0);
+
+                    ul {
                         height: 400px;
-                        width: 100%;
-                    }
-                    .info {
-                        height: 400px;
-                        width: 100%;
-                        background-color: rgba(162, 162, 162, 0.383);
-                        display: none;
-                        top: 0;
-                        .cardbody {
-                            z-index: 2;
-                            background-color: rgba(255, 255, 255, 0);
-                            ul {
-                                height: 400px;
-                                overflow-y: scroll;
-                                li {
-                                    max-height: calc((100% / 12) * 2);
-                                    span {
-                                        svg {
-                                            width: 10px;
-                                            height: 10px;
-                                            fill: yellow;
-                                        }
-                                    }
-                                    img {
-                                        width: 32px;
-                                        height: 16px;
-                                    }
+                        overflow-y: scroll;
+
+                        li {
+                            max-height: calc((100% / 12) * 2);
+
+                            span {
+                                svg {
+                                    width: 10px;
+                                    height: 10px;
+                                    fill: yellow;
                                 }
                             }
+
+                            img {
+                                width: 32px;
+                                height: 16px;
+                            }
                         }
-            
                     }
+                }
+
+            }
         }
     }
 
