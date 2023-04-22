@@ -1,5 +1,4 @@
 <script>
-import { store } from "../store";
 import ImgGeneration from './ImgGeneration.vue'
 import VoteGeneration from './VoteGeneration.vue'
 export default {
@@ -11,11 +10,7 @@ export default {
     props: {
                 arrayMovie: Object
             },
-    data() {
-        return {
-            store,
-        }
-    },
+   
 }
 </script>
 <template>
@@ -36,7 +31,7 @@ export default {
         <VoteGeneration :element="arrayMovie"></VoteGeneration>
     </li>
     <!-- generate list of actor by array cast show -->
-    <li v-for="act in store.arrayCastShow">Personaggio:{{ act.character }}
+    <li v-for="act in arrayMovie.attori">Personaggio:{{ act.character }}
         Attore:{{ act.name }}
     </li>
 </template>

@@ -17,10 +17,53 @@ export const store = reactive({
     apiUrlGenresMovie: 'https://api.themoviedb.org/3/genre/movie/list?api_key=e99307154c6dfb0b4750f6603256716d&language=it_IT',
     apiUrlGenresSeries: 'https://api.themoviedb.org/3/genre/tv/list?api_key=e99307154c6dfb0b4750f6603256716d&language=it_IT',
     compatibleFlags: flags,
+        /**Get Cast by API
+     * 
+     */
+        getCastByApi(id,urlBase,k) {
+            //crea una constante e le inserissce una stringa composta da this.apiUrlCastMovie + id (passatogli) + this.apiUrlCastEnd
+            const urlcast = `${urlBase}${id}${this.apiUrlCastEnd}`
+            let cast = {}
+            let actors = []
+            /* //svuota l'array da mostrare per il cast
+            this.arrayCastShow = [] */
+            //effetua una chiamata all'API
+            axios
+                //utilizza lacostante creata per effettuare la chimata
+                .get(urlcast)
+                //se ottiene esito positivo
+                .then((response) => {
+
+                    //cicla all'interno della risposta > .data.cast e prende il singolo attore e la posizione dell'array
+                    response.data.cast.forEach((actor,index) => {
+
+
+                        if (index < 5) {
+
+                            //aggiunge elemento actor nell'array actors
+                            actors.push(actor)
+                            
+                        }
+                    
+                    });
+
+                    //crea una chiave attori contenete l'array actors e lo inserisce nell'array in posizione k
+                    this.arrayShow[k]["attori"] = actors
+                })
+                
+                //se ottiene esito negativo
+                .catch((error) => {
+    
+                    //logga in console l'errore ottenuto
+                    console.log(error);
+    
+                })
+                
+        },
     /**Get Elemnt-API into Array
      *  
      */
-    getElemntApiIntoArray(url){
+    getElemntApiIntoArray(url,urlBasecast){
         //effetua una chiamata all'API
         axios
             //utilizza la stringa url passatagli per effettuare la chimata
@@ -28,7 +71,7 @@ export const store = reactive({
             //se ottiene esito positivo
             .then((response) => {
                 //cicla all'interno della risposta >.data.results per ottenere il singolo film/serie
-                response.data.results.forEach(element => {
+                response.data.results.forEach((element,k) => {
                     
                     const idArrayGenresMovie = Object.values(element.genre_ids)
                     //se il genere selezionato è incluso nel genere del film/serie o il genere selezionato è una stringa vuota
@@ -37,6 +80,7 @@ export const store = reactive({
                         //inserisce nell'array da mostrare l'elemento    
                         this.arrayShow.push(element)
 
+                        this.getCastByApi(element.id,urlBasecast,k)
                     }
 
                 });
@@ -62,7 +106,7 @@ export const store = reactive({
     /**Get Data by API
      * 
      */
-    getDataByApi() {
+    getDataByApi(urlBasecastmovie,urlBasecastSeries) {
 
         //controlla che il nome inserito dall'untente non è nullo
         if (this.querySerch != null) {
@@ -75,10 +119,11 @@ export const store = reactive({
             //svuota l'array contenente tutti gli elementi da mostra a schermo 
             this.arrayShow = []
             //utilizza la funzione per inserire gli elementi appena generati nell'array
-            this.getElemntApiIntoArray(urlMovie)
+            this.getElemntApiIntoArray(urlMovie,urlBasecastmovie)
             //utilizza la funzione per inserire gli elementi appena generati nell'array
-            this.getElemntApiIntoArray(urlTv)
-
+            this.getElemntApiIntoArray(urlTv,urlBasecastSeries)
+            console.log('array di film completo');
+            console.log(this.arrayShow);
         }
     },
     /**Get Genres-List by API
@@ -128,41 +173,7 @@ export const store = reactive({
 
             });
     },
-    /**Get Cast by API
-     * 
-     */
-    getCastByApi(id,urlBase) {
-        //crea una constante e le inserissce una stringa composta da this.apiUrlCastMovie + id (passatogli) + this.apiUrlCastEnd
-        const urlcast = `${urlBase}${id}${this.apiUrlCastEnd}`
-        //svuota l'array da mostrare per il cast
-        this.arrayCastShow = []
-        //effetua una chiamata all'API
-        axios
-            //utilizza lacostante creata per effettuare la chimata
-            .get(urlcast)
-            //se ottiene esito positivo
-            .then((response) => {
 
-                //cicla all'interno della risposta > .data.cast e prende il singolo attore e la posizione dell'array
-                response.data.cast.forEach((actor,index) => {
-                    //se la posizione dell'array è compresa tra 0 e 4
-                   if (index < 5) {
-
-                    //inserisce i dati dell'attore dentro l'array da mostrare
-                    this.arrayCastShow.push(actor)
-                
-                    }    
-                });
-                
-            })
-            //se ottiene esito negativo
-            .catch((error) => {
-
-                //logga in console l'errore ottenuto
-                console.log(error);
-
-            })
-    },
     /**Condition for generate Cast-List
      * 
      */
