@@ -3,11 +3,10 @@ import axios, { Axios } from 'axios';
 import flags from "../src/assets/data/Flags";
 export const store = reactive({
     querySerch: null,
-    arrayShow: null,
+    arrayShow: [],
     arrayCastShow: null,
     arrayListGenres: null,
     selectGenre : '',
-    erronNotFoudGenres: false,
     apiUrlMovie: 'https://api.themoviedb.org/3/search/movie?api_key=57f5adf44da9194b28f4b759dda8f20f&language=it-IT&page=1&include_adult=false&query=',
     apiUrlSeries: 'https://api.themoviedb.org/3/search/tv?api_key=57f5adf44da9194b28f4b759dda8f20f&language=it-IT&page=1&include_adult=false&query=',
     apiUrlImg: 'https://image.tmdb.org/t/p/w500/',
@@ -28,20 +27,15 @@ export const store = reactive({
             .get(url)
             //se ottiene esito positivo
             .then((response) => {
-
                 //cicla all'interno della risposta >.data.results per ottenere il singolo film/serie
                 response.data.results.forEach(element => {
-
+                    
+                    const idArrayGenresMovie = Object.values(element.genre_ids)
                     //se il genere selezionato è incluso nel genere del film/serie o il genere selezionato è una stringa vuota
-                    if (element.genre_ids.includes(store.selectGenre) || store.selectGenre == '') {
+                    if (idArrayGenresMovie.includes(store.selectGenre) || store.selectGenre == '') {
 
                         //inserisce nell'array da mostrare l'elemento    
                         this.arrayShow.push(element)
-
-                    }else{
-
-                        //senno cambia il valore in tue di this.erronNotFoudGenres
-                        this.erronNotFoudGenres = true
 
                     }
 
@@ -186,18 +180,5 @@ export const store = reactive({
             this.getCastByApi(id,this.apiUrlCastSeriesStart)
         }
     },
-    /**Chage Status
-     * 
-     */
-    chagestatus(){
-        //se la lunghezza dell'array da mostrare è zero
-        if (this.arrayShow.length == 0) {
-
-            //cambia il valore di this.erronNotFoudGenres in tue
-            this.erronNotFoudGenres = true
-
-        }
-
-    }
 
 })

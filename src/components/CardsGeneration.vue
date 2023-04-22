@@ -1,17 +1,14 @@
 <script>
 import { store } from "../store";
-import VoteGeneration from "./VoteGeneration.vue";
-import ImgGeneration from './ImgGeneration.vue'
+import LiCard from './LiCard.vue'
 export default {
     name: 'CardsGeneration',
     components: {
-        VoteGeneration,
-        ImgGeneration,
+        LiCard,
     },
     data() {
         return {
             store,
-
         }
     },
     methods: {
@@ -25,35 +22,25 @@ export default {
                 return url
             }
         },
-        
     },
+    computed: {
+        chagestatus() {
+            return store.arrayShow.length == 0 ? true : false
+        }
+    }
     
 }
 </script>
 <template>
-    <div v-show="store.erronNotFoudGenres">Nessun film presente per questo genere</div>
-    <div v-for="movie in store.arrayShow" class=" col  mx-1 g-2 p-0 position-relative" :class="{'d-none' :store.erronNotFoudGenres}" >
-        <div @mousemove='store.conditionForGenerateCast(movie.title,movie.id)' v-show="!store.erronNotFoudGenres" >
+    <div v-show="this.chagestatus">Nessun film presente per questo genere</div>
+    <div v-for="movie in store.arrayShow" class=" col  mx-1 g-2 p-0 position-relative" v-show="!this.chagestatus">
+        <div @mousemove='store.conditionForGenerateCast(movie.title,movie.id)'  >
             <img v-if="movie.title != undefined" class="card-header" :src="getUrlImgByApi(movie)" :alt="movie.title" >
             <img v-else class="card-header" :src="getUrlImgByApi(movie)" :alt="movie.name">
             <div class="info position-absolute">
                 <div class="cardbody position-relative">
                     <ul class="p-0 m-0">
-                        <li class="list-unstyled">titolo :{{ movie.title }}{{ movie.name }}</li>
-                        <li class="list-unstyled"
-                            v-if="(movie.title != movie.original_title) || (movie.name != movie.original_name)">
-                            originaltitle: {{ movie.original_title }} {{ movie.original_name }}
-                        </li>
-                        <li class=" overflow-hidden list-unstyled">description: {{ movie.overview }}</li>
-                        <li class="list-unstyled">
-                            lenguage: <ImgGeneration :element="movie"></ImgGeneration>
-                        </li>
-                        <li class="list-unstyled">
-                            <VoteGeneration :element="movie"></VoteGeneration>
-                        </li>
-                        <li v-for="act in store.arrayCastShow">Personaggio:{{ act.character }}
-                            Attore:{{ act.name }}
-                        </li>
+                       <LiCard :arrayMovie="movie" ></LiCard>
                     </ul>
                 </div>
             </div>
