@@ -33,7 +33,7 @@ export default {
 <template>
     <div v-show="store.erronNotFoudGenres">Nessun film presente per questo genere</div>
     <div v-for="movie in store.arrayShow" class=" col  mx-1 g-2 p-0 position-relative" :class="{'d-none' :store.erronNotFoudGenres}" >
-        <div @mousemove='store.getCastByApi(movie.id)' v-show="!store.erronNotFoudGenres" >
+        <div @mousemove='store.conditionForGenerateCast(movie.title,movie.id)' v-show="!store.erronNotFoudGenres" >
             <img v-if="movie.title != undefined" class="card-header" :src="getUrlImgByApi(movie)" :alt="movie.title" >
             <img v-else class="card-header" :src="getUrlImgByApi(movie)" :alt="movie.name">
             <div class="info position-absolute">

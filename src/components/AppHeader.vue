@@ -8,7 +8,9 @@ export default {
         }
     },
     mounted(){
-        store.getGenreslist()
+
+        store.getGenreslist(store.apiUrlGenresMovie,store.apiUrlGenresSeries)
+      
     }
 }
 </script>
