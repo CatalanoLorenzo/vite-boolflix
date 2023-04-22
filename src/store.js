@@ -23,7 +23,6 @@ export const store = reactive({
         getCastByApi(id,urlBase,k) {
             //crea una constante e le inserissce una stringa composta da this.apiUrlCastMovie + id (passatogli) + this.apiUrlCastEnd
             const urlcast = `${urlBase}${id}${this.apiUrlCastEnd}`
-            let cast = {}
             let actors = []
             /* //svuota l'array da mostrare per il cast
             this.arrayCastShow = [] */
@@ -50,7 +49,7 @@ export const store = reactive({
                     //crea una chiave attori contenete l'array actors e lo inserisce nell'array in posizione k
                     this.arrayShow[k]["attori"] = actors
                 })
-                
+
                 //se ottiene esito negativo
                 .catch((error) => {
     
