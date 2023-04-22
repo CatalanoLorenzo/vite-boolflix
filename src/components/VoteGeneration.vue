@@ -6,7 +6,7 @@ export default {
     },
     methods: {
         getNumberVotes(number) {
-            return Number((Math.ceil(number) / 2).toFixed()) 
+            return Number((Math.ceil(number) / 2).toFixed())
         },
         addStars(voto) {
             let starsOn = ''
@@ -28,9 +28,12 @@ export default {
 </script>
 
 <template>
-    <span>vote: {{ getNumberVotes(element.vote_average)+ '/5 ' }} </span>
+    <!-- span whit vote -->
+    <span>vote: {{ getNumberVotes(element.vote_average) + '/5 ' }} </span>
+    <!-- span whit stars on -->
     <span v-html="addStars(getNumberVotes(element.vote_average))">
     </span>
+    <!-- span whit stars off -->
     <span v-html="addStarOff(getNumberVotes(element.vote_average))">
     </span>
 </template>

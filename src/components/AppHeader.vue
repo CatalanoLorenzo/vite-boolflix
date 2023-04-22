@@ -10,9 +10,11 @@ export default {
 <template>
     <header>
         <div class=" navbar">
+            <!-- Logo Site -->
             <div class=" navbar-brand">
                 <img src="../assets/img/BollFlix Logo.jpg" alt="">
             </div>
+            <!-- selects for serch  -->
             <div class=" nav-item">
                 <SelectsHeader></SelectsHeader>
             </div>
